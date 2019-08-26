@@ -1,4 +1,5 @@
 ﻿using HubMiddleware.Modelos;
+using HubMiddleware.Modelos.Shared;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -60,11 +61,11 @@ namespace HubMiddleware.RealTime
         private Alarm _alarm;
         public Alarm Alarm { get { return _alarm; } set { _alarm = value; OnAlarmChanged("Alarm"); } }
 
-        private Watcher _watcher;
-        public Watcher Watcher { get { return _watcher; } set { _watcher = value; OnWatcherChanged("Watcher"); } }
+        private WatcherEvent _watcherEvent;
+        public WatcherEvent WatcherEvent { get { return _watcherEvent; } set { _watcherEvent = value; OnWatcherChanged("WatcherEvent"); } }
 
-        private Andon _andon;
-        public Andon Andon { get { return _andon; } set { _andon = value; OnAndonChanged("Andon"); } }
+        private AndonEvent _andonEvent;
+        public AndonEvent AndonEvent { get { return _andonEvent; } set { _andonEvent = value; OnAndonChanged("Andon"); } }
 
         private string Url { get; set; }
         
@@ -143,18 +144,18 @@ namespace HubMiddleware.RealTime
                 .WithUrl(Url)
                 .Build();
 
-            hubConnection.On<string, Andon>("watcherEvent", (group, watcher) =>
+            hubConnection.On<string, Watcher>("watcherEvent", (group, watcher) =>
             {
-                this.Watcher = new Watcher()
+                this.WatcherEvent = new WatcherEvent()
                 {
                     Body = watcher,
                     Group = group
                 };
             });
 
-            hubConnection.On<string, object>("andonEvent", (group, andon) =>
+            hubConnection.On<string, Andon>("andonEvent", (group, andon) =>
             {
-                this.Andon = new Andon()
+                this.AndonEvent = new AndonEvent()
                 {
                     Body = andon,
                     Group = group
