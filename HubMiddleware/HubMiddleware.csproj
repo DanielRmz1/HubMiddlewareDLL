@@ -125,9 +125,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modelos\Andon.cs" />
-    <Compile Include="Modelos\Shared\Machine.cs" />
-    <Compile Include="Modelos\Watcher.cs" />
+    <Compile Include="Modelos\AndonEvent.cs" />
+    <Compile Include="Modelos\Shared\Andon.cs" />
+    <Compile Include="Modelos\Shared\MachineInformation.cs" />
+    <Compile Include="Modelos\Shared\Production.cs" />
+    <Compile Include="Modelos\Shared\Watcher.cs" />
+    <Compile Include="Modelos\WatcherEvent.cs" />
     <Compile Include="RealTime\Broadcaster.cs" />
     <Compile Include="Notifications\EmailNotification.cs" />
     <Compile Include="Modelos\Alarm.cs" />

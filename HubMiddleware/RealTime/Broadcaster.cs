@@ -35,6 +35,8 @@ namespace HubMiddleware.RealTime
 
         public event PropertyChangedEventHandler AndonNotification;
 
+        public event PropertyChangedEventHandler SuscriptionAlertNotification;
+
         #endregion
 
         #region LocalProperties
@@ -65,7 +67,10 @@ namespace HubMiddleware.RealTime
         public WatcherEvent WatcherEvent { get { return _watcherEvent; } set { _watcherEvent = value; OnWatcherChanged("WatcherEvent"); } }
 
         private AndonEvent _andonEvent;
-        public AndonEvent AndonEvent { get { return _andonEvent; } set { _andonEvent = value; OnAndonChanged("Andon"); } }
+        public AndonEvent AndonEvent { get { return _andonEvent; } set { _andonEvent = value; OnAndonChanged("AndonEvent"); } }
+
+        private string _sucriptionId;
+        public string SuscriptionId { get { return _sucriptionId; } set { _sucriptionId = value; OnSuscriptionAlert("SuscriptionId"); } }
 
         private string Url { get; set; }
         
@@ -128,6 +133,15 @@ namespace HubMiddleware.RealTime
             }
         }
 
+        protected void OnSuscriptionAlert(string suscriptionId)
+        {
+            PropertyChangedEventHandler handler = SuscriptionAlertNotification;
+            if(handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(suscriptionId));
+            }
+        }
+
         #endregion
 
         #region constructor
@@ -184,6 +198,8 @@ namespace HubMiddleware.RealTime
                     StartDate = start_date
                 };
             });
+
+
 
             hubConnection.Closed += async (error) => {
                 this.IsConnected = false;
