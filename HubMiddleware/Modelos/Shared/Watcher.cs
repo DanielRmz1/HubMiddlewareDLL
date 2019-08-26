@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace HubMiddleware.Modelos.Shared
 {
     public class Watcher
     {
+        public Production Production { get; set; }
 
+        public MachineInformation MachineInformation { get; set; }
     }
 }
