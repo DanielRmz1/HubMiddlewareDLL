@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HubMiddleware.Modelos.Shared
 {
-    class Watcher
+    public class Watcher
     {
+
     }
 }
