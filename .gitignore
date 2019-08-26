@@ -4,3 +4,4 @@
 /HubMiddleware/bin/*
 *.config
 .vs/*
+*.csproj
