@@ -125,8 +125,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcaster.cs" />
-    <Compile Include="EmailNotification.cs" />
+    <Compile Include="Modelos\Andon.cs" />
+    <Compile Include="Modelos\Watcher.cs" />
+    <Compile Include="RealTime\Broadcaster.cs" />
+    <Compile Include="Notifications\EmailNotification.cs" />
     <Compile Include="Modelos\Alarm.cs" />
     <Compile Include="Modelos\EmailModels.cs" />
     <Compile Include="Modelos\Tag.cs" />

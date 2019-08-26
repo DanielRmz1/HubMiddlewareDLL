@@ -30,6 +30,10 @@ namespace HubMiddleware.RealTime
         /// </summary>
         public event PropertyChangedEventHandler AlarmNotification;
 
+        public event PropertyChangedEventHandler WatcherNotification;
+
+        public event PropertyChangedEventHandler AndonNotification;
+
         #endregion
 
         #region LocalProperties
@@ -55,6 +59,12 @@ namespace HubMiddleware.RealTime
 
         private Alarm _alarm;
         public Alarm Alarm { get { return _alarm; } set { _alarm = value; OnAlarmChanged("Alarm"); } }
+
+        private Watcher _watcher;
+        public Watcher Watcher { get { return _watcher; } set { _watcher = value; OnWatcherChanged("Watcher"); } }
+
+        private Andon _andon;
+        public Andon Andon { get { return _andon; } set { _andon = value; OnAndonChanged("Andon"); } }
 
         private string Url { get; set; }
         
@@ -99,6 +109,24 @@ namespace HubMiddleware.RealTime
             }
         }
 
+        protected void OnWatcherChanged(string watcher)
+        {
+            PropertyChangedEventHandler handler = WatcherNotification;
+            if(handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(watcher));
+            }
+        }
+
+        protected void OnAndonChanged(string andon)
+        {
+            PropertyChangedEventHandler handler = AndonNotification;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(andon));
+            }
+        }
+
         #endregion
 
         #region constructor
@@ -114,6 +142,24 @@ namespace HubMiddleware.RealTime
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(Url)
                 .Build();
+
+            hubConnection.On<string, object>("watcherEvent", (group, watcher) =>
+            {
+                this.Watcher = new Watcher()
+                {
+                    Body = watcher,
+                    Group = group
+                };
+            });
+
+            hubConnection.On<string, object>("andonEvent", (group, andon) =>
+            {
+                this.Andon = new Andon()
+                {
+                    Body = andon,
+                    Group = group
+                };
+            });
 
             hubConnection.On<object, string>("tagEvent", (data, tag) =>
             {
@@ -170,18 +216,18 @@ namespace HubMiddleware.RealTime
         /// en base aun determinado nombre TAG 
         /// </summary>
         /// <param name="tagName">Variable tipo string que indica el nombre del "Grupo" al cual se suscribe el usuario</param>
-        public async Task SuscribeTag(string tagName)
+        public async Task Suscribe(string groupName)
         {
-            await hubConnection.InvokeAsync("SuscribeTag", tagName);
+            await hubConnection.InvokeAsync("Suscribe", groupName);
         }
 
         /// <summary>
-        /// Cierra el estado de escucha del cliente, se tiene que pasar el mismo tagName que cuando se suscribio
+        /// Cierra el estado de escucha del cliente, se tiene que pasar el mismo groupName que cuando se suscribio
         /// </summary>
         /// <param name="tagName">Variable tipo string que indica el nombre del "Grupo" al cual se desuscribe el usuario</param>
-        public async Task UnsuscribeTag(string tagName)
+        public async Task Unsuscribe(string groupName)
         {
-            await hubConnection.InvokeAsync("UnsuscribeTag", tagName);
+            await hubConnection.InvokeAsync("Unsuscribe", groupName);
         }
 
         #region broadcasters
@@ -193,9 +239,9 @@ namespace HubMiddleware.RealTime
         /// </summary>
         /// <param name="tagName">Nombre del tag al cual se quiere hacer la trasmisión.</param>
         /// <param name="message">Información que se desea enviar</param>
-        public async Task Broadcast(string tagName, string message)
+        public async Task BroadcastTag(string tagName, string message)
         {
-            await hubConnection.InvokeAsync("Broadcast", tagName, message);
+            await hubConnection.InvokeAsync("BroadcastTag", tagName, message);
         }
 
         /// <summary>
@@ -203,9 +249,9 @@ namespace HubMiddleware.RealTime
         /// </summary>
         /// <param name="tagName">Nombre del tag al cual se quiere hacer la trasmisión.</param>
         /// <param name="message">Información que se desea enviar</param>
-        public async Task Broadcast(string tagName, bool message)
+        public async Task BroadcastTag(string tagName, bool message)
         {
-            await hubConnection.InvokeAsync("Broadcast", tagName, message);
+            await hubConnection.InvokeAsync("BroadcastTag", tagName, message);
         }
 
         /// <summary>
@@ -213,9 +259,9 @@ namespace HubMiddleware.RealTime
         /// </summary>
         /// <param name="tagName">Nombre del tag al cual se quiere hacer la trasmisión.</param>
         /// <param name="data">Información que se desea enviar</param>
-        public async Task Broadcast(string tagName, int data)
+        public async Task BroadcastTag(string tagName, int data)
         {
-            await hubConnection.InvokeAsync("Broadcast", tagName, data);
+            await hubConnection.InvokeAsync("BroadcastTag", tagName, data);
         }
 
         /// <summary>
@@ -223,9 +269,9 @@ namespace HubMiddleware.RealTime
         /// </summary>
         /// <param name="tagName">Nombre del tag al cual se quiere hacer la trasmisión.</param>
         /// <param name="data">Información que se desea enviar</param>
-        public async Task Broadcast(string tagName, double data)
+        public async Task BroadcastTag(string tagName, double data)
         {
-            await hubConnection.InvokeAsync("Broadcast", tagName, data);
+            await hubConnection.InvokeAsync("BroadcastTag", tagName, data);
         }
 
         #endregion
