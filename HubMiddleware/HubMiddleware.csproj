@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelos\Andon.cs" />
+    <Compile Include="Modelos\Shared\Machine.cs" />
     <Compile Include="Modelos\Watcher.cs" />
     <Compile Include="RealTime\Broadcaster.cs" />
     <Compile Include="Notifications\EmailNotification.cs" />
@@ -138,5 +139,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
