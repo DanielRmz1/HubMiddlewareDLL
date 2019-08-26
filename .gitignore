@@ -1,0 +1,6 @@
+/libs/*
+/packages/*
+/HubMiddleware/obj/*
+/HubMiddleware/bin/*
+*.config
+.vs/*
