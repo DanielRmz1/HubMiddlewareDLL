@@ -160,14 +160,14 @@ namespace HubMiddleware.RealTime
 
             hubConnection.On<string, WatcherEvent>("watcherEvent", (group, watcher) =>
             {
+                watcher.Group = group;
                 this.WatcherEvent = watcher;
-                WatcherEvent.Group = group;
             });
 
             hubConnection.On<string, AndonEvent>("andonEvent", (group, andon) =>
             {
+                andon.Group = group;
                 this.AndonEvent = andon;
-                AndonEvent.Group = group;
             });
 
             hubConnection.On<object, string>("tagEvent", (data, tag) =>
