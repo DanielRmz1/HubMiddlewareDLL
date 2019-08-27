@@ -45,7 +45,7 @@ namespace HubMiddleware.Modelos.Shared
         /// <summary>
         /// Esta propiedad se repite con la propiedad de la clase MachineInformation
         /// </summary>
-        public int ShiftIdOrder { get; set; }
+        public string ShiftIdOrder { get; set; }
 
         public int IdTurno { get; set; }
 
@@ -53,10 +53,14 @@ namespace HubMiddleware.Modelos.Shared
 
         public DateTime DownTimeDate { get; set; }
 
-        public int OEEOrder { get; set; }
+        public string OEEOrders { get; set; }
 
         public double Tolerance { get; set; }
 
         public int PieceTime { get; set; }
+
+        public int PieceOk { get; set; }
+
+        public int PieceBad { get; set; }
     }
 }
