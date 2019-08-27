@@ -1,0 +1,5 @@
+/HubMiddleware/obj/*
+/HubMiddleware/bin/*
+/obj/*
+.vs/*
+*.csproj
