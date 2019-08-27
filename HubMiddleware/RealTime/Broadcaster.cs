@@ -158,22 +158,16 @@ namespace HubMiddleware.RealTime
                 .WithUrl(Url)
                 .Build();
 
-            hubConnection.On<string, Watcher>("watcherEvent", (group, watcher) =>
+            hubConnection.On<string, WatcherEvent>("watcherEvent", (group, watcher) =>
             {
-                this.WatcherEvent = new WatcherEvent()
-                {
-                    Body = watcher,
-                    Group = group
-                };
+                this.WatcherEvent = watcher;
+                WatcherEvent.Group = group;
             });
 
-            hubConnection.On<string, Andon>("andonEvent", (group, andon) =>
+            hubConnection.On<string, AndonEvent>("andonEvent", (group, andon) =>
             {
-                this.AndonEvent = new AndonEvent()
-                {
-                    Body = andon,
-                    Group = group
-                };
+                this.AndonEvent = andon;
+                AndonEvent.Group = group;
             });
 
             hubConnection.On<object, string>("tagEvent", (data, tag) =>
