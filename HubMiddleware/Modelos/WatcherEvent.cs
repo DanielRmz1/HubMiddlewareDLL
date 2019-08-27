@@ -6,6 +6,8 @@ namespace HubMiddleware.Modelos
     {
         public string Group { get; set; }
 
-        public Watcher Body { get; set; }
+        public Production Production { get; set; }
+
+        public MachineInformation MachineInformation { get; set; }
     }
 }

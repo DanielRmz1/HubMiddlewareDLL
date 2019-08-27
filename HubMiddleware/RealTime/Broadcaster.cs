@@ -304,7 +304,7 @@ namespace HubMiddleware.RealTime
         /// <param name="groupName">Nombre del grupo</param>
         /// <param name="watcher">Objeto que contiene la informacion del watcher</param>
         /// <returns></returns>
-        public async Task BroadcastWatcher(string groupName, object watcher)
+        public async Task BroadcastWatcher(string groupName, WatcherEvent watcher)
         {
             await hubConnection.InvokeAsync("WatcherEvent", groupName, watcher);
         }
@@ -315,7 +315,7 @@ namespace HubMiddleware.RealTime
         /// <param name="groupName">Nombre del grupo</param>
         /// <param name="andon">Objeto que contiene la informacion del andon</param>
         /// <returns></returns>
-        public async Task BroadcastAndon(string groupName, object andon)
+        public async Task BroadcastAndon(string groupName, AndonEvent andon)
         {
             await hubConnection.InvokeAsync("AndonEvent", groupName, andon);
         }
