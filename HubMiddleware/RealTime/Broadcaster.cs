@@ -174,7 +174,7 @@ namespace HubMiddleware.RealTime
             {
                 this.Tag = new Tag()
                 {
-                    Body = data,
+                    Value = data,
                     Name = tag
                 };
             });
