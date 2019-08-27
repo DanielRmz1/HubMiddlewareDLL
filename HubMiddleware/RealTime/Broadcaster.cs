@@ -193,7 +193,9 @@ namespace HubMiddleware.RealTime
                 };
             });
 
-
+            hubConnection.On<string>("alertSuscription", (id) => {
+                this.SuscriptionId = id;
+            });
 
             hubConnection.Closed += async (error) => {
                 this.IsConnected = false;
