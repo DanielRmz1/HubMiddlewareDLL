@@ -12,5 +12,7 @@ namespace HubMiddleware.Modelos.Shared
         public string Color { get; set; }
 
         public string IsOn { get; set; }
+
+        public int Position { get; set; }
     }
 }
